@@ -14,7 +14,7 @@ def TimeSeries_window(dataset:pd.DataFrame, catalog:pd.DataFrame, itv_front:int 
     dataset.loc[:, 'Timestamp'] =  pd.to_datetime(dataset['Timestamp'])
 
 
-    features = np.empty((0, 46), float)
+    features = np.empty((0, itv_front + itv_back + 1), float)
     labels = np.empty((0, 3), float)
     count = 0
     for i in catalog.index:
@@ -47,7 +47,7 @@ def TimeSeries_window(dataset:pd.DataFrame, catalog:pd.DataFrame, itv_front:int 
         labels = np.append(labels, np.array([catalog.loc[i, ['goes_class', 'relative_X-ray_flux_increase', 'cme_vel']]]), axis = 0)
 
     # data = pd.DataFrame(features, columns=['series', 'goes', 'rxfi', 'cme_vel'])
-    with open('Timeseries_data.pickle', 'wb') as file:
+    with open(f'Timeseries_data_st{itv_front}end{itv_back}.pickle', 'wb') as file:
         pickle.dump(features, file)
         pickle.dump(labels, file)
 
@@ -55,5 +55,5 @@ df_xflux = pd.read_csv("/media/jh/maxone/Research/GSU/Research1_xray_flux/fixed_
 df_catal = pd.read_csv("/media/jh/maxone/Research/GSU/Research1_xray_flux/MultiwayIntegration_2010_to_2018_conf_rxfi.csv")
 
 if __name__ == '__main__':
-    TimeSeries_window(dataset = df_xflux, catalog = df_catal, itv_front = 20, itv_back = 25)
+    TimeSeries_window(dataset = df_xflux, catalog = df_catal, itv_front = 10, itv_back = 12)
 

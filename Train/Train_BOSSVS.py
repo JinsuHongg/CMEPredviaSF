@@ -34,6 +34,6 @@ def train(model = 'TSF', classifier = None, parameters = None, threshold = 500):
 
 if __name__ == "__main__":
     
-    parameters = {'window_size': [5,10, 100, 1000], 'n_bins':[4, 8, 12, 16, 40], 'word_size': [4, 8, 12]}
+    parameters = {'window_size': [10, 15, 20, 25, 30], 'n_bins':[2, 4, 6, 8], 'word_size': [2, 4, 6, 8]}
     model = BOSSVS()
     train(model = 'BOSSVS', classifier = model, parameters = parameters, threshold = 500)
