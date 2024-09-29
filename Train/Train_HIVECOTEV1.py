@@ -6,14 +6,11 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split
 
 # import models
-from pyts.classification import TimeSeriesForest
-from pyts.classification import LearningShapelets
-from pyts.classification import BOSSVS
-from pyts.classification import SAXVSM
+from aeon.classification.hybrid import HIVECOTEV1, HIVECOTEV2
 
-def train(model = 'TSF', classifier = None, parameters = None, threshold = 500):
+def train(model = 'TSF', classifier = None, parameters = None, threshold = 500, window_st = '10', window_end = '12'):
 
-    with open('/home/jh/2python_pr/CMEPredviaSF/Dataset_Creation/Timeseries_data.pickle', 'rb') as file:
+    with open(f'/home/jh/2python_pr/CMEPredviaSF/Dataset_Creation/Timeseries_data_st{window_st}end{window_end}.pickle', 'rb') as file:
         series = pickle.load(file)
         labels = pickle.load(file)
 
@@ -31,9 +28,10 @@ def train(model = 'TSF', classifier = None, parameters = None, threshold = 500):
     print('Test score', clf.score(X_test, y_test))
 
     
-
 if __name__ == "__main__":
     
-    parameters = {'window_size': [10, 15, 20, 25, 30], 'n_bins':[2, 4, 6, 8], 'word_size': [2, 4, 6, 8]}
-    model = BOSSVS()
-    train(model = 'BOSSVS', classifier = model, parameters = parameters, threshold = 500)
+    parameters = {'tsf_params':[100, 300],
+                  'rise_params': [100, 300]} #, 'time_limit_in_minutes': [0, 1], 'stc_params': [1, 2, 3],
+    
+    hc2 = HIVECOTEV1()
+    train(model = 'HIVECOTEV1', classifier = hc2, parameters = parameters, threshold = 500, window_st = '20', window_end = '25')

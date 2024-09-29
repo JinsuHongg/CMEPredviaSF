@@ -11,6 +11,7 @@ from pyts.classification import LearningShapelets
 from pyts.classification import BOSSVS
 from pyts.classification import SAXVSM
 
+
 def train(model = 'TSF', classifier = None, parameters = None, threshold = 500):
 
     with open('/home/jh/2python_pr/CMEPredviaSF/Dataset_Creation/Timeseries_data.pickle', 'rb') as file:
@@ -30,10 +31,14 @@ def train(model = 'TSF', classifier = None, parameters = None, threshold = 500):
     print('Train Score: ',clf.score(X_train, y_train))
     print('Test score', clf.score(X_test, y_test))
 
-    
 
 if __name__ == "__main__":
     
-    parameters = {'window_size': [10, 15, 20, 25, 30], 'n_bins':[2, 4, 6, 8], 'word_size': [2, 4, 6, 8]}
-    model = BOSSVS()
-    train(model = 'BOSSVS', classifier = model, parameters = parameters, threshold = 500)
+    parameters = {'window_size': [0.2, 0.4, 0.6, 0.8], 
+                  'word_size':[0.2, 0.4, 0.6, 0.8], 
+                  'strategy':['uniform', 'quantile', 'normal'],
+                  'n_bins': [4, 8, 12],
+                  'window_step': [0.4, 0.6, 0.8, 1],
+                  'threshold_std': [0.01, 0.1, 0.001] }
+    model = SAXVSM()
+    train(model = 'SAXVSM', classifier = model, parameters = parameters, threshold = 500)

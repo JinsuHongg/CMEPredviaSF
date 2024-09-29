@@ -55,5 +55,5 @@ df_xflux = pd.read_csv("/media/jh/maxone/Research/GSU/Research1_xray_flux/fixed_
 df_catal = pd.read_csv("/media/jh/maxone/Research/GSU/Research1_xray_flux/MultiwayIntegration_2010_to_2018_conf_rxfi.csv")
 
 if __name__ == '__main__':
-    TimeSeries_window(dataset = df_xflux, catalog = df_catal, itv_front = 10, itv_back = 12)
+    TimeSeries_window(dataset = df_xflux, catalog = df_catal, itv_front = 10, itv_back = 25)
 

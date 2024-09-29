@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from pyts.classification import TimeSeriesForest
 from pyts.classification import LearningShapelets
 from pyts.classification import BOSSVS
-
+from pyts.classification import SAXVSM
 
 def train(model = 'TSF', classifier = None, parameters = None, threshold = 500):
 
@@ -25,7 +25,7 @@ def train(model = 'TSF', classifier = None, parameters = None, threshold = 500):
     clf.fit(series, y)
 
 
-    pd.DataFrame(clf.cv_results_).to_csv(f"{model}_gridsearch_result.csv")
+    pd.DataFrame(clf.cv_results_).to_csv(f"{model}_gridsearch_result.csv", index = False)
     print(clf.best_params_)
     print('Train Score: ',clf.score(X_train, y_train))
     print('Test score', clf.score(X_test, y_test))

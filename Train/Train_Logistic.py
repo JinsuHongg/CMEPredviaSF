@@ -27,7 +27,7 @@ def train(model = 'Logistic', classifier = None, parameters = None, threshold = 
     clf = GridSearchCV(classifier, parameters, scoring = 'f1_macro', cv = 5, return_train_score = True)
     clf.fit(features, y)
 
-    pd.DataFrame(clf.cv_results_).to_csv(f"{model}_gridsearch_result.csv")
+    pd.DataFrame(clf.cv_results_).to_csv(f"{model}_gridsearch_result.csv", index = False)
     print(clf.best_params_)
     print('Train Score: ',clf.score(X_train, y_train))
     print('Test score', clf.score(X_test, y_test))
